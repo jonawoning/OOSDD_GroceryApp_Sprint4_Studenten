@@ -18,6 +18,8 @@ mono_crash.*
 
 # Jetbrains Rider
 /.idea
+.idea/
+*.sln.iml
 
 # Build results
 [Dd]ebug/
