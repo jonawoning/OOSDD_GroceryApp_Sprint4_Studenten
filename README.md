@@ -9,7 +9,7 @@ Hieronder staat uitgelegd hoe we met branches werken en hoe je nieuwe code toevo
 - **main**  
   Bevat de stabiele productiecode. Alleen releases en hotfixes komen hier terecht.
 
-- **develop**  
+- **develop**
   Hier wordt alle ontwikkelcode samengebracht vanuit feature-branches.  
   Beschouw dit als de "werkversie" die klaarstaat voor de volgende release.
 
