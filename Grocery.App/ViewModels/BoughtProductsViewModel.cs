@@ -11,7 +11,7 @@ namespace Grocery.App.ViewModels
     {
         private readonly IBoughtProductsService _boughtProductsService;
 
-        [ObservableProperty] Product selectedProduct;
+        [ObservableProperty] private Product _selectedProduct;
         public ObservableCollection<BoughtProducts> BoughtProductsList { get; set; } = [];
         public ObservableCollection<Product> Products { get; set; }
 
