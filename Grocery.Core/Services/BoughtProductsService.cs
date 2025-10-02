@@ -5,22 +5,35 @@ using Grocery.Core.Models;
 
 namespace Grocery.Core.Services
 {
-    public class BoughtProductsService : IBoughtProductsService
+    public class BoughtProductsService(
+        IGroceryListItemsRepository groceryListItemsRepository,
+        IGroceryListRepository groceryListRepository,
+        IClientRepository clientRepository,
+        IProductRepository productRepository)
+        : IBoughtProductsService
     {
-        private readonly IGroceryListItemsRepository _groceryListItemsRepository;
-        private readonly IClientRepository _clientRepository;
-        private readonly IProductRepository _productRepository;
-        private readonly IGroceryListRepository _groceryListRepository;
-        public BoughtProductsService(IGroceryListItemsRepository groceryListItemsRepository, IGroceryListRepository groceryListRepository, IClientRepository clientRepository, IProductRepository productRepository)
+        public List<BoughtProducts> Get(int productId)
         {
-            _groceryListItemsRepository=groceryListItemsRepository;
-            _groceryListRepository=groceryListRepository;
-            _clientRepository=clientRepository;
-            _productRepository=productRepository;
-        }
-        public List<BoughtProducts> Get(int? productId)
-        {
-            throw new NotImplementedException();
+            var groceryListItems = groceryListItemsRepository.GetByProductId(productId);
+            
+            Product? product = productRepository.Get(productId);
+            if (product == null) return new List<BoughtProducts>();
+
+            List<BoughtProducts> result = new List<BoughtProducts>();
+
+            foreach (GroceryListItem groceryListItem in groceryListItems)
+            {
+                GroceryList ?groceryList = groceryListRepository.Get(groceryListItem.GroceryListId);
+                if (groceryList == null) continue;
+
+                Client ?client = clientRepository.Get(groceryList.ClientId);
+                if (client == null) continue;
+
+                result.Add(new BoughtProducts(client, groceryList, product));
+            }
+
+            return result;
         }
     }
+
 }

@@ -13,6 +13,8 @@ namespace Grocery.Core.Interfaces.Repositories
         public GroceryListItem? Delete(GroceryListItem item);
 
         public GroceryListItem? Get(int id);
+        
+        IEnumerable<GroceryListItem> GetByProductId(int productId);
 
         public GroceryListItem? Update(GroceryListItem item);
     }

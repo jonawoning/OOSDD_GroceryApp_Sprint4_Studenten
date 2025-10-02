@@ -6,6 +6,7 @@ using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Models;
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using Grocery.Core.Models.Enums;
 
 namespace Grocery.App.ViewModels
 {
