@@ -14,23 +14,27 @@ namespace Grocery.Core.Services
     {
         public List<BoughtProducts> Get(int productId)
         {
-            List<GroceryListItem> groceryListItems = groceryListItemsRepository.GetAll().Where(g => g.ProductId == productId).ToList();
-            List<BoughtProducts> boughtProducts = new List<BoughtProducts>();
+            var groceryListItems = groceryListItemsRepository.GetByProductId(productId);
+            var product = productRepository.Get(productId);
 
-            foreach (GroceryListItem groceryListItem in groceryListItems)
+            if (product == null)
+                return new List<BoughtProducts>();
+
+            var result = new List<BoughtProducts>();
+
+            foreach (var groceryListItem in groceryListItems)
             {
-                GroceryList? groceryList = groceryListRepository.Get(groceryListItem.GroceryListId);
-                if (groceryList != null)
-                {
-                    Client ?client = clientRepository.Get(groceryList.ClientId);
-                    Product ?product = productRepository.Get(productId);
-                    
-                    if (client != null && product != null)
-                        boughtProducts.Add(new BoughtProducts(client, groceryList, product));
-                }
+                var groceryList = groceryListRepository.Get(groceryListItem.GroceryListId);
+                if (groceryList == null) continue;
+
+                var client = clientRepository.Get(groceryList.ClientId);
+                if (client == null) continue;
+
+                result.Add(new BoughtProducts(client, groceryList, product));
             }
-            
-            return boughtProducts;
+
+            return result;
         }
     }
+
 }
