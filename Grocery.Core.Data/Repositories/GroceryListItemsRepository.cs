@@ -46,6 +46,13 @@ namespace Grocery.Core.Data.Repositories
             return groceryListItems.FirstOrDefault(g => g.Id == id);
         }
 
+        public IEnumerable<GroceryListItem> GetByProductId(int productId)
+        {
+            return groceryListItems
+                .Where(g => g.ProductId == productId)
+                .ToList();
+        }
+
         public GroceryListItem? Update(GroceryListItem item)
         {
             GroceryListItem? listItem = groceryListItems.FirstOrDefault(i => i.Id == item.Id);
