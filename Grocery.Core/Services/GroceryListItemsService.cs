@@ -66,7 +66,7 @@ namespace Grocery.Core.Services
             }
             // order the dictionary by value and take the top X
             var topProducts = productAmounts.OrderByDescending(x => x.Value).Take(topX);
-            List<BestSellingProducts> bestSellingProducts = new();
+            List<BestSellingProducts> bestSellingProducts = [];
             int rank = 1;
             foreach (var p in topProducts)
             {
