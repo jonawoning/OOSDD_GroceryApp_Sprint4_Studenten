@@ -44,9 +44,9 @@ namespace Grocery.App.ViewModels
         }
         
         [RelayCommand]
-        public async Task ShowBoughtProducts(Client client)
+        public async Task ShowBoughtProducts()
         {
-            if (client.Role == Role.Admin)
+            if (_global.Client.Role == Role.Admin)
             {
                 await Shell.Current.GoToAsync(nameof(Views.BoughtProductsView));
             }
