@@ -19,10 +19,15 @@ namespace Grocery.Core.Services
 
             foreach (GroceryListItem groceryListItem in groceryListItems)
             {
-                GroceryList groceryList = groceryListRepository.Get(groceryListItem.GroceryListId);
-                Client client = clientRepository.Get(groceryList.ClientId);
-                Product product = productRepository.Get(productId);
-                boughtProducts.Add(new BoughtProducts(client, groceryList, product));
+                GroceryList? groceryList = groceryListRepository.Get(groceryListItem.GroceryListId);
+                if (groceryList != null)
+                {
+                    Client ?client = clientRepository.Get(groceryList.ClientId);
+                    Product ?product = productRepository.Get(productId);
+                    
+                    if (client != null && product != null)
+                        boughtProducts.Add(new BoughtProducts(client, groceryList, product));
+                }
             }
             
             return boughtProducts;
