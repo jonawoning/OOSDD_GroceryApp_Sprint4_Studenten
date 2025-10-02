@@ -6,11 +6,13 @@ on:
       - main
       - develop
       - release/**
+      - feature/**
   pull_request:
     branches:
       - main
       - develop
       - release/**
+      - feature/**
 
 jobs:
   test:
@@ -31,7 +33,7 @@ jobs:
         run: dotnet restore
 
       - name: Bouw de applicatie
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build Grocery.App/Grocery.App.csproj --configuration Release --no-restore --framework net8.0-android /p:ApplicationId=nl.windesheim.groceryapp
 
       - name: Voer unit tests uit
         run: dotnet test --configuration Release --no-restore --no-build --verbosity normal
