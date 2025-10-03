@@ -51,7 +51,7 @@ namespace TestCore
         public void Get_ReturnsBoughtProducts_WhenDataIsValid()
         {
             var groceryListItem = new GroceryListItem(1, 2, 3, 1);
-            _groceryListItemsRepoMock.Setup(r => r.GetAll()).Returns(new List<GroceryListItem> { groceryListItem });
+            _groceryListItemsRepoMock.Setup(r => r.GetByProductId(3)).Returns(new List<GroceryListItem> { groceryListItem });
 
             var groceryList = new GroceryList(2, "List", DateOnly.FromDateTime(DateTime.Today), "red", 5);
             _groceryListRepoMock.Setup(r => r.Get(2)).Returns(groceryList);
